@@ -28,6 +28,15 @@ class FileDownloader extends React.Component<FileDownloaderProps, FileDownloader
 				error: ""
 			});
 			const response = await fetch(this.props.endpointUrl);
+			
+			if (response.status === 404) {
+				throw new Error("No media to download");
+			}
+
+			if (!response.ok) {
+				throw new Error("Internal Server Error");
+			}
+			
 			const blob = await response.blob();
 			
 			const url = window.URL.createObjectURL(blob);
@@ -39,12 +48,14 @@ class FileDownloader extends React.Component<FileDownloaderProps, FileDownloader
 			link.click();
 			link.parentNode.removeChild(link);
       			window.URL.revokeObjectURL(url);
+			this.setState({
+				loading: false
+			});
 		} catch (error) {
 			this.setState({
-				loading: false,
-				error: error.toString()
+				error: error.toString(),
+				loading: false
 			});
-			console.error(error);
 		}
 	}
 
