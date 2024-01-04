@@ -14,8 +14,8 @@ class App extends React.Component {
 	render(): React.JSX.Element {
 		return <main>
 			<h2>Upload Files to server</h2>
-			<FileUploader endpointUrl="http://localhost:5502/upload" />
-			<FileDownloader endpointUrl="http://localhost:5502/download" />
+			<FileUploader endpointUrl="http://192.168.86.48:5502/upload" />
+			<FileDownloader endpointUrl="http://192.168.86.48:5502/download" />
 		</main>;
 	}
 }
